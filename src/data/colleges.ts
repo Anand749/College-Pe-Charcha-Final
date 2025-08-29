@@ -135,7 +135,6 @@ export const colleges: College[] = [
     whatsappLink: 'https://chat.whatsapp.com/walchand-mentors',
     mentors: []
   },
-  // Adding more colleges...
   {
     id: 'cummins',
     name: 'Cummins',
@@ -149,8 +148,99 @@ export const colleges: College[] = [
     cons: ['Only for women', 'Limited diversity', 'Competitive admission'],
     whatsappLink: 'https://chat.whatsapp.com/cummins-mentors',
     mentors: []
+  },
+  {
+    id: 'vit',
+    name: 'VIT',
+    fullName: 'Vishwakarma Institute of Technology',
+    location: 'Pune',
+    established: 1983,
+    image: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?w=800',
+    description: 'Leading private engineering institute in Pune known for its modern curriculum and industry-focused education.',
+    highlights: ['Modern curriculum', 'Industry partnerships', 'Good infrastructure', 'Innovation focus'],
+    pros: ['Modern facilities', 'Industry exposure', 'Good placements', 'Active campus life'],
+    cons: ['High fees', 'Competitive environment', 'Large batch size'],
+    whatsappLink: 'https://chat.whatsapp.com/vit-mentors',
+    mentors: [
+      {
+        id: '6',
+        name: 'Anand Chapke',
+        branch: 'Computer Engineering',
+        year: 'Third Year',
+        photo: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=200'
+      }
+    ]
+  },
+  {
+    id: 'dypit',
+    name: 'DY Patil',
+    fullName: 'Dr. D. Y. Patil Institute of Technology',
+    location: 'Pune',
+    established: 1998,
+    image: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
+    description: 'Modern engineering institute with state-of-the-art facilities and strong industry connections.',
+    highlights: ['Modern infrastructure', 'Industry connections', 'Research focus', 'International exposure'],
+    pros: ['Modern facilities', 'Good faculty', 'Industry exposure', 'International programs'],
+    cons: ['High fees', 'Newer institute', 'Limited legacy'],
+    whatsappLink: 'https://chat.whatsapp.com/dypit-mentors',
+    mentors: []
+  },
+  {
+    id: 'pccoe',
+    name: 'PCCOE',
+    fullName: 'Pimpri Chinchwad College of Engineering',
+    location: 'Pune',
+    established: 1999,
+    image: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?w=800',
+    description: 'Well-established engineering college in Pimpri Chinchwad with good academic standards and placement records.',
+    highlights: ['Good placements', 'Industry connections', 'Research opportunities', 'Student activities'],
+    pros: ['Good faculty', 'Industry exposure', 'Affordable fees', 'Active student life'],
+    cons: ['Suburban location', 'Limited brand recognition', 'Competitive environment'],
+    whatsappLink: 'https://chat.whatsapp.com/pccoe-mentors',
+    mentors: []
+  },
+  {
+    id: 'wce',
+    name: 'WCE',
+    fullName: 'Walchand College of Engineering',
+    location: 'Sangli',
+    established: 1947,
+    image: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
+    description: 'One of the oldest and most prestigious engineering colleges in Maharashtra with excellent academic heritage.',
+    highlights: ['Rich heritage', 'Strong academics', 'Good placements', 'Research excellence'],
+    pros: ['Excellent faculty', 'Strong legacy', 'Good placements', 'Research opportunities'],
+    cons: ['Remote location', 'Limited city exposure', 'Smaller city opportunities'],
+    whatsappLink: 'https://chat.whatsapp.com/wce-mentors',
+    mentors: []
+  },
+  {
+    id: 'djsc',
+    name: 'DJSCE',
+    fullName: 'Dwarkadas J. Sanghvi College of Engineering',
+    location: 'Mumbai',
+    established: 1994,
+    image: 'https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?w=800',
+    description: 'Premier engineering college in Mumbai known for its excellent faculty and strong industry connections.',
+    highlights: ['Mumbai advantage', 'Excellent faculty', 'Industry connections', 'Good placements'],
+    pros: ['Mumbai location', 'Excellent faculty', 'Industry exposure', 'Good placements'],
+    cons: ['High fees', 'Competitive admission', 'Expensive city'],
+    whatsappLink: 'https://chat.whatsapp.com/djsce-mentors',
+    mentors: []
+  },
+  {
+    id: 'kjsce',
+    name: 'KJSCE',
+    fullName: 'K. J. Somaiya College of Engineering',
+    location: 'Mumbai',
+    established: 1991,
+    image: 'https://images.pexels.com/photos/256490/pexels-photo-256490.jpeg?w=800',
+    description: 'Leading engineering college in Mumbai with modern curriculum and strong industry partnerships.',
+    highlights: ['Modern curriculum', 'Industry partnerships', 'Research focus', 'Innovation hub'],
+    pros: ['Mumbai location', 'Modern facilities', 'Industry exposure', 'Good faculty'],
+    cons: ['High fees', 'Competitive environment', 'Limited campus space'],
+    whatsappLink: 'https://chat.whatsapp.com/kjsce-mentors',
+    mentors: []
   }
-  // Add more colleges as needed...
 ];
 
 export const getCollegeByName = (collegeName: string): College | undefined => {

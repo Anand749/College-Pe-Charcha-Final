@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Linkedin, Instagram, Mail, ChevronDown, ChevronUp } from 'lucide-react';
+import { Linkedin, Instagram, Mail, ChevronDown, ChevronUp, GraduationCap, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import arnav from '../assets/core/arnav.jpg';
@@ -42,25 +42,26 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount }: { ti
 
   return (
     <section className="mb-16">
-      <div className="bg-white rounded-2xl shadow-2xl flex flex-col md:flex-row h-full overflow-hidden">
+      <div className="bg-white rounded-3xl shadow-2xl flex flex-col md:flex-row overflow-hidden border border-orange-100 md:h-[640px]">
         
         {/* Left Panel: Scrollable List of Members */}
         <div className="w-full md:w-1/3 lg:w-1/4 border-r border-gray-200 flex flex-col">
-          <div className="p-4 flex-grow overflow-y-auto">
-            <h2 className={`text-lg font-bold ${accentTextClass} mb-4`}>{title}</h2>
-            <div className="space-y-2">
+          {/* This inner div will now scroll because its parent has a fixed height */}
+          <div className="p-6 flex-grow overflow-y-auto">
+            <h2 className={`text-xl font-bold ${accentTextClass} mb-6`}>{title}</h2>
+            <div className="space-y-3">
               {visibleMembers.map(member => (
                 <button
                   key={member.id}
                   onClick={() => setSelectedMember(member)}
-                  className={`w-full flex items-center space-x-3 p-3 rounded-lg text-left transition-colors duration-200 ${
+                  className={`w-full flex items-center space-x-4 p-4 rounded-2xl text-left transition-all duration-300 ${
                     selectedMember.id === member.id ? accentBgClass : 'hover:bg-gray-100'
                   }`}
                 >
-                  <img src={member.photo} alt={member.name} className="w-12 h-12 rounded-full object-cover flex-shrink-0" />
+                  <img src={member.photo} alt={member.name} className="w-14 h-14 rounded-2xl object-cover flex-shrink-0" />
                   <div>
-                    <p className="font-bold text-gray-900">{member.name}</p>
-                    <p className={`text-sm font-medium ${accentTextClass}`}>{member.role}</p>
+                    <p className="font-bold text-gray-900 text-lg">{member.name}</p>
+                    <p className={`text-sm font-semibold ${accentTextClass}`}>{member.role}</p>
                   </div>
                 </button>
               ))}
@@ -69,10 +70,10 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount }: { ti
 
           {/* "View More" Button */}
           {canBeTruncated && (
-            <div className="p-4 border-t border-gray-200">
+            <div className="p-6 border-t border-gray-200">
               <button 
                 onClick={() => setIsExpanded(!isExpanded)} 
-                className="w-full flex items-center justify-center space-x-2 text-sm font-semibold text-gray-600 hover:text-gray-900 py-2 rounded-lg hover:bg-gray-100 transition-colors"
+                className="w-full flex items-center justify-center space-x-2 text-sm font-semibold text-gray-600 hover:text-gray-900 py-3 rounded-2xl hover:bg-gray-100 transition-all duration-300"
               >
                 <span>{isExpanded ? 'View Less' : `View All ${members.length} Members`}</span>
                 {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -82,7 +83,7 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount }: { ti
         </div>
         
         {/* Right Panel: Detailed View of Selected Member */}
-        <div className="w-full md:w-2/3 lg:w-3/4 p-6 md:p-10 lg:p-12 overflow-y-auto">
+        <div className="w-full md:w-2/3 lg:w-3/4 p-8 md:p-12 lg:p-16 overflow-y-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={selectedMember.id}
@@ -93,19 +94,19 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount }: { ti
               className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12"
             >
               <div className="w-full lg:w-1/3">
-                <img src={selectedMember.photo} alt={selectedMember.name} className="rounded-xl shadow-lg w-full aspect-square object-cover" />
+                <img src={selectedMember.photo} alt={selectedMember.name} className="rounded-3xl shadow-2xl w-full aspect-square object-cover" />
               </div>
               <div className="w-full lg:w-2/3">
                 <p className={`text-sm font-semibold ${accentTextClass} uppercase tracking-wider`}>{selectedMember.role}</p>
-                <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mt-1 mb-3">{selectedMember.name}</h1>
-                <p className="text-lg font-medium text-gray-500 mb-6">{selectedMember.college} - {selectedMember.year}</p>
-                <p className="text-gray-700 leading-relaxed">{selectedMember.bio}</p>
+                <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mt-2 mb-4">{selectedMember.name}</h1>
+                <p className="text-xl font-medium text-gray-500 mb-6">{selectedMember.college} - {selectedMember.year}</p>
+                <p className="text-gray-700 leading-relaxed text-lg">{selectedMember.bio}</p>
                 <div className="mt-8 pt-6 border-t border-gray-200">
-                  <p className="text-sm font-semibold text-gray-500 mb-3">Connect:</p>
-                  <div className="flex space-x-4">
-                    {selectedMember.linkedin && <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-600 hover:text-blue-700 transition-colors"><Linkedin size={20} /><span>LinkedIn</span></a>}
-                    {selectedMember.instagram && <a href={selectedMember.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-600 hover:text-pink-600 transition-colors"><Instagram size={20} /><span>Instagram</span></a>}
-                    {selectedMember.email && <a href={`mailto:${selectedMember.email}`} className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"><Mail size={20} /><span>Email</span></a>}
+                  <p className="text-sm font-semibold text-gray-500 mb-4">Connect:</p>
+                  <div className="flex space-x-6">
+                    {selectedMember.linkedin && <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-600 hover:text-blue-700 transition-colors"><Linkedin size={24} /><span>LinkedIn</span></a>}
+                    {selectedMember.instagram && <a href={selectedMember.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-600 hover:text-pink-600 transition-colors"><Instagram size={24} /><span>Instagram</span></a>}
+                    {selectedMember.email && <a href={`mailto:${selectedMember.email}`} className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"><Mail size={24} /><span>Email</span></a>}
                   </div>
                 </div>
               </div>
@@ -142,31 +143,43 @@ const TeamPage = () => {
   const collegeHeads = teamMembers.filter(member => member.role.includes('College Head'));
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="text-center py-10">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2 tracking-tight">
-          Meet The Team
-        </h1>
-        <p className="text-lg text-gray-500 max-w-2xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
+      <div className="text-center py-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex items-center justify-center gap-4 mb-6"
+        >
+          <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
+            <GraduationCap className="w-8 h-8 text-white" />
+          </div>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900">Meet The Team</h1>
+        </motion.div>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1 }}
+          className="text-xl text-gray-600 max-w-3xl mx-auto"
+        >
           The passionate students dedicated to guiding the next generation.
-        </p>
+        </motion.p>
       </div>
 
       <div className="max-w-7xl w-full mx-auto p-4 md:p-8">
         
-        {/* Showcase 1: Core Team (Shows 4 initially, with a "View More" button) */}
+        {/* Showcase 1: Core Team */}
         <TeamShowcase 
           title="Core Team" 
           members={coreTeam} 
           accentColor="orange"
-          initialVisibleCount={4} // <<< THIS IS THE ONLY LINE ADDED
+          initialVisibleCount={4}
         />
 
-        {/* Showcase 2: College Heads (Shows 4 initially, with a "View More" button) */}
+        {/* Showcase 2: College Heads */}
         <TeamShowcase 
           title="College Heads" 
           members={collegeHeads} 
-          accentColor="green"
+          accentColor="orange"
           initialVisibleCount={4}
         />
         

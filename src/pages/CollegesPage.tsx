@@ -1,180 +1,457 @@
-import React, { useState } from 'react';
-import { Linkedin, Instagram, Mail, ChevronDown, ChevronUp } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { MapPin, Calendar, Users, Star, ArrowRight, Search, Filter, Building, GraduationCap, Sparkles, TrendingUp, Award, ChevronLeft, ChevronRight, Grid, List } from 'lucide-react';
+import { colleges } from '../data/colleges';
 
-import arnav from '../assets/core/arnav.jpg';
-import vedanti from '../assets/core/vedanti.jpg';
-import samarth from '../assets/core/Samarth Dhagate.jpg';
-import anand from '../assets/core/anand.jpg';
+const CollegesPage = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('');
+  const [sortBy, setSortBy] = useState<'name' | 'established' | 'popularity'>('popularity');
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [showAllColleges, setShowAllColleges] = useState(false);
 
+  // Filter and sort colleges
+  const filteredColleges = colleges
+    .filter(college => {
+      const matchesSearch = college.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           college.fullName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           college.location.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesLocation = selectedLocation === '' || college.location === selectedLocation;
+      return matchesSearch && matchesLocation;
+    })
+    .sort((a, b) => {
+      switch (sortBy) {
+        case 'name':
+          return a.name.localeCompare(b.name);
+        case 'established':
+          return a.established - b.established;
+        case 'popularity':
+          return b.established - a.established; // Older colleges first
+        default:
+          return 0;
+      }
+    });
 
-// The TeamMember interface remains the same
-interface TeamMember {
-  id: string;
-  name: string;
-  role: string;
-  college: string;
-  year: string;
-  bio: string;
-  photo: string;
-  linkedin?: string;
-  instagram?: string;
-  email?: string;
-}
+  const locations = [...new Set(colleges.map(college => college.location))];
 
-// A reusable, now stateful, component for the "List & Detail" showcase
-const TeamShowcase = ({ title, members, accentColor, initialVisibleCount }: { title: string, members: TeamMember[], accentColor: string, initialVisibleCount?: number }) => {
-  if (members.length === 0) {
-    return null;
-  }
+  // Auto-play functionality
+  useEffect(() => {
+    if (!isAutoPlaying || filteredColleges.length === 0 || showAllColleges) return;
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [selectedMember, setSelectedMember] = useState<TeamMember>(members[0]);
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const [isExpanded, setIsExpanded] = useState(false);
-  
-  const accentTextClass = `text-${accentColor}-600`;
-  const accentBgClass = `bg-${accentColor}-100`;
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % filteredColleges.length);
+    }, 4000);
 
-  // Determine if the "View More" button is needed and which members to show
-  const canBeTruncated = initialVisibleCount && members.length > initialVisibleCount;
-  const visibleMembers = canBeTruncated && !isExpanded ? members.slice(0, initialVisibleCount) : members;
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, filteredColleges.length, showAllColleges]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % filteredColleges.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + filteredColleges.length) % filteredColleges.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setCurrentSlide(index);
+  };
 
   return (
-    <section className="mb-16">
-      {/* ▼▼▼ THIS IS THE ONLY LINE THAT CHANGED ▼▼▼ */}
-      <div className="bg-white rounded-2xl shadow-2xl flex flex-col md:flex-row overflow-hidden md:h-[640px]">
-        
-        {/* Left Panel: Scrollable List of Members */}
-        <div className="w-full md:w-1/3 lg:w-1/4 border-r border-gray-200 flex flex-col">
-          {/* This inner div will now scroll because its parent has a fixed height */}
-          <div className="p-4 flex-grow overflow-y-auto">
-            <h2 className={`text-lg font-bold ${accentTextClass} mb-4`}>{title}</h2>
-            <div className="space-y-2">
-              {visibleMembers.map(member => (
-                <button
-                  key={member.id}
-                  onClick={() => setSelectedMember(member)}
-                  className={`w-full flex items-center space-x-3 p-3 rounded-lg text-left transition-colors duration-200 ${
-                    selectedMember.id === member.id ? accentBgClass : 'hover:bg-gray-100'
-                  }`}
-                >
-                  <img src={member.photo} alt={member.name} className="w-12 h-12 rounded-full object-cover flex-shrink-0" />
-                  <div>
-                    <p className="font-bold text-gray-900">{member.name}</p>
-                    <p className={`text-sm font-medium ${accentTextClass}`}>{member.role}</p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* "View More" Button */}
-          {canBeTruncated && (
-            <div className="p-4 border-t border-gray-200">
-              <button 
-                onClick={() => setIsExpanded(!isExpanded)} 
-                className="w-full flex items-center justify-center space-x-2 text-sm font-semibold text-gray-600 hover:text-gray-900 py-2 rounded-lg hover:bg-gray-100 transition-colors"
-              >
-                <span>{isExpanded ? 'View Less' : `View All ${members.length} Members`}</span>
-                {isExpanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-              </button>
-            </div>
-          )}
-        </div>
-        
-        {/* Right Panel: Detailed View of Selected Member */}
-        <div className="w-full md:w-2/3 lg:w-3/4 p-6 md:p-10 lg:p-12 overflow-y-auto">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={selectedMember.id}
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Hero Section */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-orange-600 to-orange-700 text-white py-16">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-orange-600/30 via-orange-500/30 to-orange-600/30"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
-              className="flex flex-col lg:flex-row items-start gap-8 lg:gap-12"
+              className="flex items-center justify-center gap-4 mb-6"
             >
-              <div className="w-full lg:w-1/3">
-                <img src={selectedMember.photo} alt={selectedMember.name} className="rounded-xl shadow-lg w-full aspect-square object-cover" />
+              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-white/20">
+                <Building className="w-8 h-8 text-white" />
               </div>
-              <div className="w-full lg:w-2/3">
-                <p className={`text-sm font-semibold ${accentTextClass} uppercase tracking-wider`}>{selectedMember.role}</p>
-                <h1 className="text-4xl lg:text-5xl font-extrabold text-gray-900 mt-1 mb-3">{selectedMember.name}</h1>
-                <p className="text-lg font-medium text-gray-500 mb-6">{selectedMember.college} - {selectedMember.year}</p>
-                <p className="text-gray-700 leading-relaxed">{selectedMember.bio}</p>
-                <div className="mt-8 pt-6 border-t border-gray-200">
-                  <p className="text-sm font-semibold text-gray-500 mb-3">Connect:</p>
-                  <div className="flex space-x-4">
-                    {selectedMember.linkedin && <a href={selectedMember.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-600 hover:text-blue-700 transition-colors"><Linkedin size={20} /><span>LinkedIn</span></a>}
-                    {selectedMember.instagram && <a href={selectedMember.instagram} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-600 hover:text-pink-600 transition-colors"><Instagram size={20} /><span>Instagram</span></a>}
-                    {selectedMember.email && <a href={`mailto:${selectedMember.email}`} className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"><Mail size={20} /><span>Email</span></a>}
-                  </div>
-                </div>
+              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-white/20">
+                <Sparkles className="w-8 h-8 text-white" />
               </div>
             </motion.div>
-          </AnimatePresence>
+            <motion.h1 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white to-orange-100 bg-clip-text text-transparent"
+            >
+              Premier Colleges
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-lg md:text-xl text-orange-100 max-w-3xl mx-auto leading-relaxed font-light"
+            >
+              Discover Maharashtra's finest engineering institutions with authentic insights and expert guidance
+            </motion.p>
+          </div>
         </div>
       </div>
-    </section>
-  );
-};
 
+      {/* Filters and Search */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-10 mb-16 border border-white/20"
+        >
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+              <Filter className="w-6 h-6 text-white" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900">Find Your Perfect Match</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            {/* Search */}
+            <div className="md:col-span-2">
+              <div className="relative">
+                <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 w-6 h-6" />
+                <input
+                  type="text"
+                  placeholder="Search by college name, location, or specializations..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full pl-14 pr-6 py-5 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-orange-500/20 focus:border-orange-500 text-lg bg-white/50 backdrop-blur-sm transition-all duration-300"
+                />
+              </div>
+            </div>
 
-const TeamPage = () => {
-  const teamMembers: TeamMember[] = [
-    // Core Team Members
-    { id: '1', name: 'Anand Chapke', role: 'Founder & Lead', college: 'VIT Pune', year: 'Third Year', bio: 'Passionate about bridging the gap between aspirants and achievers.', photo: anand, linkedin: '#', instagram: '#'},
-    { id: '2', name: 'Samarth Dhagate', role: 'Operation Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Leading our mentorship program and student engagement initiatives.', photo: samarth, linkedin: '#' },
-    { id: '3', name: 'Vedanti Raut', role: 'Marketing Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: vedanti, linkedin: '#' },
-    { id: '4', name: 'Hardik Rokade', role: 'Operation Lead', college: 'VIT Pune', year: 'Third Year', bio: 'Crafting user-centric designs that enhance the learning experience.', photo: arnav, linkedin: '#' },
-    { id: '5', name: 'Arnav Mahajan', role: 'Marketing Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: arnav, linkedin: '#' },
-    { id: '6', name: 'Devesh Nhalde', role: 'Research Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: vedanti, linkedin: '#' },
-    
-    // College Heads (More than 4 to demonstrate "View More")
-    { id: '7', name: 'Varun Mehta', role: 'College Head - PICT', college: 'PICT Pune', year: 'Final Year', bio: 'Managing PICT mentor network and student connections.', photo: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800', linkedin: '#' },
-    { id: '8', name: 'Ananya Singh', role: 'College Head - COEP', college: 'COEP Pune', year: 'Third Year', bio: 'Coordinating mentorship programs for COEP aspirants.', photo: 'https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?w=800', linkedin: '#' },
-    { id: '9', name: 'Karthik Rao', role: 'College Head - VJTI', college: 'VJTI Mumbai', year: 'Final Year', bio: 'Building bridges between VJTI seniors and junior aspirants.', photo: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?w=800', linkedin: '#' },
-    { id: '10', name: 'Nisha Gupta', role: 'College Head - SPIT', college: 'SPIT Mumbai', year: 'Third Year', bio: 'Organizing expert sessions and networking events for SPIT.', photo: 'https://images.pexels.com/photos/1587009/pexels-photo-1587009.jpeg?w=800', linkedin: '#' },
-    { id: '11', name: 'Ravi Kumar', role: 'College Head - Walchand', college: 'Walchand Sangli', year: 'Final Year', bio: 'Building and nurturing our student community in Walchand.', photo: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800', linkedin: '#' },
-    { id: '12', name: 'Meera Shah', role: 'College Head - Cummins', college: 'Cummins College', year: 'Third Year', bio: 'Creating beautiful and intuitive user experiences for our members.', photo: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=800', linkedin: '#' }
-  ];
+            {/* Location Filter */}
+            <div>
+              <select
+                value={selectedLocation}
+                onChange={(e) => setSelectedLocation(e.target.value)}
+                className="w-full px-5 py-5 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-orange-500/20 focus:border-orange-500 text-lg bg-white/50 backdrop-blur-sm transition-all duration-300"
+              >
+                <option value="">📍 All Locations</option>
+                {locations.map(location => (
+                  <option key={location} value={location}>📍 {location}</option>
+                ))}
+              </select>
+            </div>
 
-  // Separate members into their respective sections
-  const coreTeam = teamMembers.filter(member => !member.role.includes('College Head'));
-  const collegeHeads = teamMembers.filter(member => member.role.includes('College Head'));
+            {/* Sort By */}
+            <div>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as any)}
+                className="w-full px-5 py-5 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-orange-500/20 focus:border-orange-500 text-lg bg-white/50 backdrop-blur-sm transition-all duration-300"
+              >
+                <option value="popularity">🔥 Most Popular</option>
+                <option value="name">📝 Alphabetical</option>
+                <option value="established">📅 Established</option>
+              </select>
+            </div>
+          </div>
+        </motion.div>
 
-  return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="text-center py-10">
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-2 tracking-tight">
-          Meet The Team
-        </h1>
-        <p className="text-lg text-gray-500 max-w-2xl mx-auto">
-          The passionate students dedicated to guiding the next generation.
-        </p>
-      </div>
+        {/* Colleges Display */}
+        {filteredColleges.length > 0 && (
+          <div className="mb-16">
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-3xl font-bold text-gray-900">
+                {showAllColleges ? 'All Colleges' : 'Featured Colleges'}
+              </h2>
+              <div className="flex items-center gap-4">
+                {!showAllColleges && (
+                  <button
+                    onClick={() => setShowAllColleges(true)}
+                    className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-600 to-orange-700 text-white rounded-xl hover:from-orange-700 hover:to-orange-800 transition-all duration-300 font-semibold"
+                  >
+                    <Grid className="w-4 h-4" />
+                    View All Colleges
+                  </button>
+                )}
+                {showAllColleges && (
+                  <button
+                    onClick={() => setShowAllColleges(false)}
+                    className="flex items-center gap-2 px-6 py-3 bg-gray-600 text-white rounded-xl hover:bg-gray-700 transition-all duration-300 font-semibold"
+                  >
+                    <List className="w-4 h-4" />
+                    Show Featured
+                  </button>
+                )}
+              </div>
+            </div>
 
-      <div className="max-w-7xl w-full mx-auto p-4 md:p-8">
-        
-        {/* Showcase 1: Core Team */}
-        <TeamShowcase 
-          title="Core Team" 
-          members={coreTeam} 
-          accentColor="orange"
-          initialVisibleCount={4}
-        />
+            {/* Slideshow View */}
+            {!showAllColleges && (
+              <div className="relative bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border border-white/20">
+                <div className="relative h-96 md:h-[500px]">
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={currentSlide}
+                      initial={{ opacity: 0, x: 100 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -100 }}
+                      transition={{ duration: 0.5 }}
+                      className="absolute inset-0"
+                    >
+                      <div className="relative h-full">
+                        {/* Background Image */}
+                        <img
+                          src={filteredColleges[currentSlide].image}
+                          alt={filteredColleges[currentSlide].fullName}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+                        
+                        {/* Content Overlay */}
+                        <div className="absolute inset-0 flex items-center">
+                          <div className="max-w-7xl mx-auto px-8 w-full">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                              {/* Text Content */}
+                              <div className="text-white">
+                                <div className="flex items-center gap-3 mb-6">
+                                  <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center">
+                                    <GraduationCap className="w-8 h-8 text-white" />
+                                  </div>
+                                  <div>
+                                    <h3 className="text-4xl md:text-5xl font-bold mb-2">{filteredColleges[currentSlide].name}</h3>
+                                    <p className="text-xl text-orange-200">{filteredColleges[currentSlide].fullName}</p>
+                                  </div>
+                                </div>
+                                
+                                <div className="flex items-center gap-6 mb-6">
+                                  <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl">
+                                    <MapPin className="w-5 h-5" />
+                                    <span className="font-medium">{filteredColleges[currentSlide].location}</span>
+                                  </div>
+                                  <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl">
+                                    <Calendar className="w-5 h-5" />
+                                    <span className="font-medium">Est. {filteredColleges[currentSlide].established}</span>
+                                  </div>
+                                </div>
+                                
+                                <p className="text-lg text-gray-200 mb-8 leading-relaxed max-w-lg">
+                                  {filteredColleges[currentSlide].description}
+                                </p>
+                                
+                                <Link
+                                  to={`/colleges/${filteredColleges[currentSlide].id}`}
+                                  className="inline-flex items-center gap-3 bg-gradient-to-r from-orange-600 to-orange-700 text-white py-4 px-8 rounded-2xl hover:from-orange-700 hover:to-orange-800 transition-all duration-300 font-semibold text-lg"
+                                >
+                                  Explore College
+                                  <ArrowRight className="w-5 h-5" />
+                                </Link>
+                              </div>
+                              
+                              {/* Highlights */}
+                              <div className="hidden lg:block">
+                                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                                  <h4 className="text-xl font-semibold text-white mb-6">Key Highlights</h4>
+                                  <div className="space-y-4">
+                                    {filteredColleges[currentSlide].highlights.map((highlight, idx) => (
+                                      <div key={idx} className="flex items-center gap-3">
+                                        <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                                        <span className="text-gray-200">{highlight}</span>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                  
+                  {/* Navigation Arrows */}
+                  <button
+                    onClick={prevSlide}
+                    className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-all duration-300 border border-white/30"
+                  >
+                    <ChevronLeft className="w-6 h-6 text-white" />
+                  </button>
+                  <button
+                    onClick={nextSlide}
+                    className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-all duration-300 border border-white/30"
+                  >
+                    <ChevronRight className="w-6 h-6 text-white" />
+                  </button>
+                </div>
+                
+                {/* Slide Indicators */}
+                <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-3">
+                  {filteredColleges.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => goToSlide(index)}
+                      className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                        index === currentSlide 
+                          ? 'bg-white w-8' 
+                          : 'bg-white/50 hover:bg-white/70'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
 
-        {/* Showcase 2: College Heads */}
-        <TeamShowcase 
-          title="College Heads" 
-          members={collegeHeads} 
-          accentColor="green"
-          initialVisibleCount={4}
-        />
-        
+            {/* Grid View for All Colleges */}
+            {showAllColleges && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {filteredColleges.map((college, index) => (
+                  <motion.div
+                    key={college.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="group bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-white/20"
+                  >
+                    {/* College Image */}
+                    <div className="relative h-64 overflow-hidden">
+                      <img
+                        src={college.image}
+                        alt={college.fullName}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                      <div className="absolute bottom-6 left-6 right-6">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+                            <GraduationCap className="w-6 h-6 text-white" />
+                          </div>
+                          <div>
+                            <h3 className="text-white text-2xl font-bold">{college.name}</h3>
+                            <p className="text-orange-200 text-sm font-medium">{college.fullName}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* College Info */}
+                    <div className="p-8">
+                      {/* Location and Established */}
+                      <div className="flex items-center justify-between mb-6">
+                        <div className="flex items-center text-gray-600 bg-orange-50 px-4 py-2 rounded-xl">
+                          <MapPin className="w-4 h-4 mr-2 text-orange-600" />
+                          <span className="text-sm font-semibold text-orange-700">{college.location}</span>
+                        </div>
+                        <div className="flex items-center text-gray-600 bg-gray-50 px-4 py-2 rounded-xl">
+                          <Calendar className="w-4 h-4 mr-2 text-gray-600" />
+                          <span className="text-sm font-semibold text-gray-700">Est. {college.established}</span>
+                        </div>
+                      </div>
+
+                      {/* Description */}
+                      <p className="text-gray-600 text-sm mb-6 line-clamp-3 leading-relaxed">
+                        {college.description}
+                      </p>
+
+                      {/* Highlights */}
+                      <div className="mb-6">
+                        <div className="flex flex-wrap gap-2">
+                          {college.highlights.slice(0, 2).map((highlight, idx) => (
+                            <span
+                              key={idx}
+                              className="inline-block px-4 py-2 bg-gradient-to-r from-orange-100 to-orange-200 text-orange-800 text-xs rounded-xl font-semibold border border-orange-200"
+                            >
+                              {highlight}
+                            </span>
+                          ))}
+                          {college.highlights.length > 2 && (
+                            <span className="inline-block px-4 py-2 bg-gray-100 text-gray-600 text-xs rounded-xl font-semibold">
+                              +{college.highlights.length - 2} more
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* CTA Button */}
+                      <Link
+                        to={`/colleges/${college.id}`}
+                        className="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-orange-600 to-orange-700 text-white py-4 px-6 rounded-2xl hover:from-orange-700 hover:to-orange-800 transition-all duration-300 font-semibold text-lg group-hover:shadow-lg transform group-hover:scale-105"
+                      >
+                        Explore College
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </Link>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* No Results */}
+        {filteredColleges.length === 0 && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-20"
+          >
+            <div className="w-24 h-24 bg-gradient-to-br from-orange-100 to-orange-200 rounded-3xl flex items-center justify-center mx-auto mb-8">
+              <Search className="w-12 h-12 text-orange-600" />
+            </div>
+            <h3 className="text-3xl font-bold text-gray-900 mb-4">No colleges found</h3>
+            <p className="text-gray-600 text-lg mb-8 max-w-md mx-auto">Try adjusting your search criteria or filters to find what you're looking for.</p>
+            <button
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedLocation('');
+                setSortBy('popularity');
+              }}
+              className="bg-gradient-to-r from-orange-600 to-orange-700 text-white px-8 py-4 rounded-2xl hover:from-orange-700 hover:to-orange-800 transition-all duration-300 font-semibold"
+            >
+              Clear Filters
+            </button>
+          </motion.div>
+        )}
+
+        {/* Why Choose Us Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="mt-24 bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-16 border border-white/20"
+        >
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Why Choose Our Platform?</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Experience the difference with our comprehensive approach to college guidance and mentorship
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="text-center">
+              <div className="w-24 h-24 bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl flex items-center justify-center mx-auto mb-8">
+                <Users className="w-12 h-12 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Expert Guidance</h3>
+              <p className="text-gray-600 leading-relaxed text-lg">Connect with experienced mentors who provide authentic insights and personalized guidance for your college journey</p>
+            </div>
+            <div className="text-center">
+              <div className="w-24 h-24 bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl flex items-center justify-center mx-auto mb-8">
+                <Sparkles className="w-12 h-12 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Premium Experience</h3>
+              <p className="text-gray-600 leading-relaxed text-lg">Enjoy a modern, intuitive platform designed to make your college search seamless and enjoyable</p>
+            </div>
+            <div className="text-center">
+              <div className="w-24 h-24 bg-gradient-to-br from-orange-500 to-orange-600 rounded-3xl flex items-center justify-center mx-auto mb-8">
+                <Award className="w-12 h-12 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-6">Proven Results</h3>
+              <p className="text-gray-600 leading-relaxed text-lg">Join thousands of successful students who found their perfect college match through our platform</p>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
 };
 
-export default TeamPage;
+export default CollegesPage;
