@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, Youtube } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -15,17 +15,14 @@ const Footer = () => {
               from top colleges and professionals from dream companies.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
+              <a href="https://www.instagram.com/college_pe_charcha?igsh=cGZ4M2p5aHdvNDgz" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
+              <a href="https://www.linkedin.com/company/college-pe-charcha/?originalSubdomain=in" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
                 <Linkedin className="h-5 w-5" />
+              </a>
+              <a href="https://www.youtube.com/channel/UCvXJbasYuKaaVHMt5Bs4N2Q" className="text-gray-400 hover:text-orange-400 transition-colors duration-200">
+                <Youtube className="h-5 w-5" />
               </a>
             </div>
           </div>
@@ -48,11 +45,11 @@ const Footer = () => {
             <div className="space-y-2">
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-orange-400" />
-                <span className="text-gray-300">hello@collegepecharcha.com</span>
+                <span className="text-gray-300">collegepecharcha11@gmail.com</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-orange-400" />
-                <span className="text-gray-300">+91 98765 43210</span>
+                <span className="text-gray-300">+91 7499957162</span>
               </div>
             </div>
           </div>

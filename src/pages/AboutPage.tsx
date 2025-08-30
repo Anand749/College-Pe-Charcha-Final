@@ -4,16 +4,16 @@ import { GraduationCap, Users, Target, Award, Heart, Sparkles, TrendingUp, BookO
 
 const AboutPage = () => {
   const stats = [
-    { icon: <Users className="w-8 h-8 text-orange-600" />, number: "500+", label: "Students Helped" },
-    { icon: <GraduationCap className="w-8 h-8 text-orange-600" />, number: "15+", label: "Partner Colleges" },
-    { icon: <Target className="w-8 h-8 text-orange-600" />, number: "95%", label: "Success Rate" },
-    { icon: <Award className="w-8 h-8 text-orange-600" />, number: "50+", label: "Expert Mentors" },
+    { icon: <Users className="w-8 h-8 text-orange-600" />, number: "15000+", label: "Happy Visitors on website" },
+    { icon: <GraduationCap className="w-8 h-8 text-orange-600" />, number: "15+", label: "Colleges Included" },
+    { icon: <Target className="w-8 h-8 text-orange-600" />, number: "5000+", label: "Students Helped" },
+    { icon: <Award className="w-8 h-8 text-orange-600" />, number: "120+", label: "Expert Mentors" },
   ];
 
   const values = [
     {
       icon: <Heart className="w-12 h-12 text-orange-600" />,
-      title: "Student-First Approach",
+      title: "Students Centric",
       description: "Everything we do is centered around helping students make informed decisions about their future."
     },
     {
@@ -34,22 +34,28 @@ const AboutPage = () => {
   ];
 
   const timeline = [
-    {
-      year: "2023",
-      title: "The Beginning",
-      description: "Started as a small group of students who wanted to help their juniors navigate the complex college admission process."
-    },
-    {
-      year: "2024",
-      title: "Growing Community",
-      description: "Expanded to multiple colleges across Maharashtra, helping hundreds of students find their path."
-    },
-    {
-      year: "2025",
-      title: "AI-Powered Platform",
-      description: "Launched our AI college predictor and comprehensive mentorship platform to serve even more students."
-    }
-  ];
+  {
+    year: "2024",
+    title: "The Beginning",
+    description: "Started as a small group of students helping juniors navigate the complex college admission process — successfully guiding 500+ students on our own."
+  },
+  {
+    year: "March 2025",
+    title: "Growing Community",
+    description: "Expanded to multiple colleges across Maharashtra, building a trusted network of seniors and mentors to guide thousands of students."
+  },
+  {
+    year: "Sept 2025",
+    title: "AI-Powered Platform",
+    description: "Launched our AI college predictor and mentorship platform to provide personalized guidance and transparent insights."
+  },
+  {
+    year: "2026",
+    title: "Campus to Corporate",
+    description: "Started connecting students with employees from their dream companies like Microsoft, Amazon, Barclays, and more — bridging the gap between education and industry."
+  }
+];
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
@@ -228,7 +234,7 @@ const AboutPage = () => {
             transition={{ delay: 0.2 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
-            <a href="/signup" className="bg-white text-orange-600 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-orange-50 transition-all duration-300 shadow-lg transform hover:scale-105">
+            <a href="https://chat.whatsapp.com/HbLY6umdG2G5jKfeRIfbxf" className="bg-white text-orange-600 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-orange-50 transition-all duration-300 shadow-lg transform hover:scale-105">
               Get Started Today
             </a>
             <a href="/team" className="border-2 border-white text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-white hover:text-orange-600 transition-all duration-300">
