@@ -1,4 +1,6 @@
 import React from 'react';
+ 
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import Navbar from './components/layout/Navbar';
@@ -14,6 +16,7 @@ import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import DashboardPage from './pages/DashboardPage';
+ 
 
 function App() {
   return (
@@ -28,6 +31,7 @@ function App() {
               <Route path="/colleges" element={<CollegesPage />} />
               <Route path="/colleges/:collegeName" element={<CollegeDetailPage />} />
               <Route path="/resources" element={<ResourcesPage />} />
+              
               <Route path="/team" element={<TeamPage />} />
               <Route path="/events" element={<EventsPage />} />
               <Route path="/about" element={<AboutPage />} />

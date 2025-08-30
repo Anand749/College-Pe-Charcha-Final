@@ -188,7 +188,7 @@ const LandingPage: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               className="text-4xl md:text-6xl font-bold text-gray-900 mb-6"
             >
-              Your Path to <span className="text-orange-600">Dream College</span> Starts Here
+              Your Path to <span className="text-orange-600">Dream College</span> Starts Here!
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
