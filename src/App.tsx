@@ -1,6 +1,4 @@
 import React from 'react';
- 
-
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import Navbar from './components/layout/Navbar';
@@ -32,7 +30,6 @@ function App() {
               <Route path="/colleges" element={<CollegesPage />} />
               <Route path="/colleges/:collegeName" element={<CollegeDetailPage />} />
               <Route path="/resources" element={<ResourcesPage />} />
-              
               <Route path="/team" element={<TeamPage />} />
               <Route path="/events" element={<EventsPage />} />
               <Route path="/about" element={<AboutPage />} />

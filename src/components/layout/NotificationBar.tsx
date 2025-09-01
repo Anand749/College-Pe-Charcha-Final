@@ -14,7 +14,7 @@ const NotificationBar = () => {
           <div className="flex items-center space-x-2">
             <span className="font-semibold">Latest Updates:</span>
             <span className="text-red-100">
-              New expert session with Barclays coming soon! Register now for exclusive insights.
+             New session with seniors from top companies – Coming Soon!  
             </span>
           </div>
         </div>

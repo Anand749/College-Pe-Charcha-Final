@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Calendar, Clock, Users, ExternalLink, MapPin } from 'lucide-react';
 import Barclays from '../assets/Barclays_1.png';
 import { Link } from 'react-router-dom';
-import  Contact from './ContactPage'
 
 interface Event {
   id: string;
@@ -293,10 +292,10 @@ const EventsPage = () => {
           <p className="text-lg mb-6 text-orange-100">
             Are you an industry expert or successful professional? Share your knowledge with aspiring students.
           </p>
-          <Link
-            to="/Contact"
-            className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition-colors duration-200 inline-flex items-center"
-          >
+                     <Link
+             to="/contact"
+             className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition-colors duration-200 inline-flex items-center"
+           >
             <Calendar className="h-5 w-5 mr-2" />
             Partner With Us
           </Link>
