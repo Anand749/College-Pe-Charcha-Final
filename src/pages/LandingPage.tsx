@@ -7,6 +7,7 @@ import arnav from '../assets/core/arnav.jpg';
 import vedanti from '../assets/core/vedanti.jpg';
 import samarth from '../assets/core/Samarth Dhagate.jpg';
 import anand from '../assets/core/anand.jpg';
+import NotificationBar from '../components/layout/NotificationBar';
 
 
 // Interface for a Team Member
@@ -170,6 +171,9 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
+      {/* Notification Bar */}
+      <NotificationBar />
+      
       {/* Hero Section */}
       <section
         className="relative py-20 transition-all duration-1000 ease-in-out overflow-hidden"

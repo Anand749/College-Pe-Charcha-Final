@@ -13,6 +13,7 @@ import ResourcesPage from './pages/ResourcesPage';
 import TeamPage from './pages/TeamPage';
 import EventsPage from './pages/EventsPage';
 import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import DashboardPage from './pages/DashboardPage';
@@ -35,6 +36,7 @@ function App() {
               <Route path="/team" element={<TeamPage />} />
               <Route path="/events" element={<EventsPage />} />
               <Route path="/about" element={<AboutPage />} />
+              <Route path="/contact" element={<ContactPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/dashboard" element={<DashboardPage />} />
