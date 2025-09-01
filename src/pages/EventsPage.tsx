@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar, Clock, Users, ExternalLink, MapPin } from 'lucide-react';
+import Barclays from '../assets/Barclays_1.png';
 
 interface Event {
   id: string;
@@ -7,7 +8,7 @@ interface Event {
   description: string;
   date: string;
   time: string;
-  type: 'Expert Session' | 'Workshop' | 'Webinar';
+  type: 'Expert Session' | 'Workshop' | 'Session';
   speaker: string;
   company?: string;
   image: string;
@@ -58,32 +59,89 @@ const EventsPage = () => {
       lumaLink: 'https://lu.ma/startup-ecosystem-webinar',
       isUpcoming: true
     },
+   {
+  "id": "4",
+  "title": "Vision To Visionaries - Barclays",
+  "description": "Exclusive session with Vaishnav Bhor (Barclays) where you’ll learn skills for success, balancing academics, coding, insider placement tips, and more.",
+  "date": "2025-08-21",
+  "time": "7:00 PM IST",
+  "type": "Expert Session",
+  "speaker": "Vaishnav Bhor",
+  "company": "Barclays",
+  "image": Barclays,
+  "lumaLink": "https://lu.ma/m0lzwsvg",
+  "isUpcoming": false,
+},
     {
-      id: '4',
-      title: 'Data Science Career Path: From College to Industry',
-      description: 'Learn about data science opportunities, required skills, and career progression from an industry expert.',
-      date: '2024-01-20',
-      time: '7:00 PM IST',
-      type: 'Expert Session',
-      speaker: 'Dr. Sneha Kulkarni',
-      company: 'Amazon',
-      image: 'https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?w=400',
-      lumaLink: 'https://lu.ma/data-science-career',
-      isUpcoming: false
-    },
-    {
-      id: '5',
-      title: 'Cracking Coding Interviews: Tips & Tricks',
-      description: 'A comprehensive workshop on coding interview preparation with practical examples and problem-solving techniques.',
-      date: '2024-01-15',
-      time: '6:00 PM IST',
-      type: 'Workshop',
-      speaker: 'Vikram Singh',
-      company: 'Meta',
-      image: 'https://images.pexels.com/photos/3184357/pexels-photo-3184357.jpeg?w=400',
-      lumaLink: 'https://lu.ma/coding-interview-workshop',
-      isUpcoming: false
-    }
+  id: '5',
+  title: 'SPIT Mumbai: Reality of Placements',
+  description: 'A candid student review on placements, recruitment trends, and the current scenario at SPIT Mumbai.',
+  date: '2025-07-12', // adjust if there's an actual release or event date
+  time: '7:00 PM IST', // you can customize or omit if not time-bound
+  type: 'Session',    // 'Expert Session' or 'Webinar' depending on style
+  speaker: 'Harsh Patil',
+  company: 'SPIT',
+  image: 'https://i.ytimg.com/vi/yvwO-e_lt1w/maxresdefault.jpg', // Poster image from the video
+  lumaLink: 'https://www.youtube.com/watch?v=yvwO-e_lt1w',      // Direct link to the video
+  isUpcoming: false  // Set to false if it's already available as a recording
+},
+{
+  id: '6',
+  title: "VIT Pune: Honest Review – Intake Vs Placement",
+  description: "A detailed student perspective on admission intake and placement trends at VIT Pune.",
+  date: "2025-07-01", // or omit if not time-bound
+  time: "7:00 PM IST",
+  type: "Session",
+  speaker: "Venugopal Baheti",
+  company: "VIT",
+  image: "https://i.ytimg.com/vi/h2SuxMpibyU/maxresdefault.jpg",
+  lumaLink: "https://www.youtube.com/watch?v=h2SuxMpibyU",
+  isUpcoming: false
+},
+{
+  id: '7',
+  title: "Everything about Cummins College of Engineering, Pune",
+  date: "2025-06-27", // or omit if not time-bound
+  time: "7:00 PM IST",
+  type: "Session",
+  speaker: "Samiksha",
+  company: "CUMMINS",
+  image: "https://i.ytimg.com/vi/eQJDpP8K3_0/maxresdefault.jpg",
+  lumaLink: "https://www.youtube.com/watch?v=eQJDpP8K3_0",
+  isUpcoming: false,
+  description: "Insights into placement trends, career opportunities, and student experiences."
+
+}
+,
+{
+  id: '8',
+  title: "Everything about VJTI Mumbai- Honest Review",
+  description: "Detailed discussion on placements, career prospects, and growth opportunities at VJTI Mumbai",
+  date: "2025-06-27", // or omit if not time-bound
+  time: "7:00 PM IST",
+  type: "Session",
+  speaker: "Yash Bhate",
+  company: "VJTI",
+  image: "https://i.ytimg.com/vi/czYCooJeciE/maxresdefault.jpg",
+  lumaLink: "https://www.youtube.com/watch?v=czYCooJeciE",
+  isUpcoming: false
+}
+,
+{
+  id: '9',
+  title: "VIT CS vs PICT ENTC",
+  description: "Comparative analysis of VIT Pune Computer Science and PICT Electronics & Telecommunication, covering academics, placements, and campus life to help students decide wisely.",
+
+  date: "2025-06-27", // or omit if not time-bound
+  time: "7:00 PM IST",
+  type: "Session",
+  speaker: "Pranav,Jay,Anuraj",
+  company: "PICT",
+  image: "https://i.ytimg.com/vi/vNy4opIcWJU/maxresdefault.jpg",
+  lumaLink: "https://www.youtube.com/watch?v=vNy4opIcWJU",
+  isUpcoming: false
+}
+  
   ];
 
   const upcomingEvents = events.filter(event => event.isUpcoming);
@@ -234,7 +292,7 @@ const EventsPage = () => {
             Are you an industry expert or successful professional? Share your knowledge with aspiring students.
           </p>
           <a
-            href="mailto:events@collegepecharcha.com"
+            href="mailto:collegepecharcha11@gmail.com?subject=Event Partnership&body=Hello, I’d like to partner for hosting an event."
             className="bg-white text-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition-colors duration-200 inline-flex items-center"
           >
             <Calendar className="h-5 w-5 mr-2" />
