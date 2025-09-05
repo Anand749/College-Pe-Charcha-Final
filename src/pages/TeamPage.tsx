@@ -1,11 +1,53 @@
-import React, { useState } from 'react';
-import { Linkedin, Instagram, Mail, ChevronDown, ChevronUp, GraduationCap, Sparkles } from 'lucide-react';
+import { useState } from 'react';
+import { Linkedin, Instagram, Mail, ChevronDown, ChevronUp, GraduationCap } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 import arnav from '../assets/core/arnav.jpg';
 import vedanti from '../assets/core/vedanti.jpg';
 import samarth from '../assets/core/Samarth Dhagate.jpg';
 import anand from '../assets/core/anand.jpg';
+import hardik from '../assets/core/hardik.jpg';
+import devesh from '../assets/core/devesh.jpg';
+import jiya from '../assets/core/jiya.jpg';
+
+import harsh from '../assets/heads/College Heads/harsh.jpg';
+// import saurab from '../assets/heads/College Heads/saurab.jpg';
+import venugopal from '../assets/heads/College Heads/venugopal.jpg';
+import yash from '../assets/heads/College Heads/yash.jpg';
+import vedant from '../assets/heads/College Heads/vedant.jpg';
+import udayraj from '../assets/heads/College Heads/udayraj.jpg';
+import siddant from '../assets/heads/College Heads/siddant.jpg';
+import pranav from '../assets/heads/College Heads/pranav.jpg';
+import samiksha from '../assets/heads/College Heads/samiksha.jpg';
+import darshan from '../assets/heads/College Heads/darshan.png';
+import akshat from '../assets/heads/College Heads/akshat.jpg';
+import aditya from '../assets/heads/College Heads/aditya.jpg';
+import aadhya from '../assets/heads/College Heads/aadhya.jpg';
+import shreeharsh from '../assets/heads/College Heads/shreeharsh.jpg';
+
+
+import jay from '../assets/mentors/jay.jpg';
+import anuraj from '../assets/mentors/anuraj.jpg';
+import adinath from '../assets/mentors/adinath.jpg';
+import atharv from '../assets/mentors/atharv.jpg';
+import arya from '../assets/mentors/arya.jpg';
+import pragati from '../assets/mentors/pragati.jpg';
+import pratham from '../assets/mentors/pratham.jpg';
+import ruchi from '../assets/mentors/ruchi.jpg';
+import tejas from '../assets/mentors/tejas.jpg';
+import siddhesh from '../assets/mentors/siddhesh.jpg';
+import sakshi from '../assets/mentors/sakshi.jpg';
+import purva from '../assets/mentors/purva.jpg';
+import janhavi from '../assets/mentors/janhavi.jpg';
+import gargi from '../assets/mentors/gargi.jpg';
+import prathamesh from '../assets/mentors/prathamesh.jpg';
+import aryan from '../assets/mentors/aryan.jpg';
+import pratik from '../assets/mentors/pratik.jpg';
+import mahesh from '../assets/mentors/mahesh.jpg';
+import ishwar from '../assets/mentors/ishwar.jpg';
+import avdhoot from '../assets/mentors/avdhoot.jpg';
+
+
 
 
 // The TeamMember interface remains the same
@@ -122,25 +164,67 @@ const TeamShowcase = ({ title, members, accentColor, initialVisibleCount }: { ti
 const TeamPage = () => {
   const teamMembers: TeamMember[] = [
     // Core Team Members
-    { id: '1', name: 'Anand Chapke', role: 'Founder & Lead', college: 'VIT Pune', year: 'Third Year', bio: 'Passionate about bridging the gap between aspirants and achievers.', photo: anand, linkedin: '#', instagram: '#'},
-    { id: '2', name: 'Samarth Dhagate', role: 'Operation Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Leading our mentorship program and student engagement initiatives.', photo: samarth, linkedin: '#' },
-    { id: '3', name: 'Vedanti Raut', role: 'Marketing Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: vedanti, linkedin: '#' },
-    { id: '4', name: 'Hardik Rokade', role: 'Operation Lead', college: 'VIT Pune', year: 'Third Year', bio: 'Crafting user-centric designs that enhance the learning experience.', photo: arnav, linkedin: '#' },
-    { id: '5', name: 'Arnav Mahajan', role: 'Marketing Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: arnav, linkedin: '#' },
-    { id: '6', name: 'Devesh Nhalde', role: 'Research Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: vedanti, linkedin: '#' },
+    { id: '1', name: 'Anand Chapke', role: 'Founder & Lead', college: 'VIT Pune', year: 'Third Year', bio: 'Passionate about bridging the gap between aspirants and achievers.', photo: anand, linkedin: 'https://www.linkedin.com/in/anand-chapke-623930281?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', instagram: 'https://www.instagram.com/myself_techzdada11?igsh=dnBkbnpnODJzNW0=', email:'anand.chapke23@vit.edu'},
+    { id: '2', name: 'Samarth Dhagate', role: 'Operation Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Leading our mentorship program and student engagement initiatives.', photo: samarth, linkedin: 'https://www.linkedin.com/in/samarth-dhagate-187b46320?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', instagram:'https://www.instagram.com/samarthdhagate?igsh=N3RvMDQwMWJ2Yml1', email:'samarth.dhagate24@vit.edu' },
+    { id: '3', name: 'Vedanti Raut', role: 'Marketing Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: vedanti, linkedin: 'https://www.linkedin.com/in/vedanti-raut-b067a6329?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app', instagram:'https://www.instagram.com/vedantiirautt?igsh=MTE3YmlwZ3EwZzZucg%3D%3D&utm_source=qr', email:'vedanti.raut24@vit.edu' },
+    { id: '4', name: 'Arnav Mahajan', role: 'Marketing Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Crafting user-centric designs that enhance the learning experience.', photo: arnav, linkedin: 'https://www.linkedin.com/in/arnav-mahajan-445099334', instagram:'https://www.instagram.com/arnav.mahajan06', email:'arnav.mahajan24@vit.edu' },
+    { id: '5', name: 'Hardik Rokhde', role: 'Operation Lead', college: 'VIT Pune', year: 'Third Year', bio: 'Building the tech infrastructure that powers our platform.', photo: hardik, linkedin: 'https://www.linkedin.com/in/hardik-rokde-844a6528a/', instagram:'https://www.instagram.com/what_a_harddik_17', email:'hardik.rokde23@vit.edu' },
+    { id: '7', name: 'Jiya Bardiya', role: 'Operation Lead', college: 'VIT Pune', year: 'Third Year', bio: 'Building the tech infrastructure that powers our platform.', photo: jiya, linkedin: '', instagram:'', email:'jiya.bardiya23@vit.edu' },
+    { id: '6', name: 'Devesh Nhalde', role: 'Research Lead', college: 'VIT Pune', year: 'Second Year', bio: 'Building the tech infrastructure that powers our platform.', photo: devesh, linkedin: 'https://www.linkedin.com/in/devesh-nhalade-566417336?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', instagram:'', email:'devesh.nhalde24@vit.edu' },
     
     // College Heads (More than 4 to demonstrate "View More")
-    { id: '7', name: 'Varun Mehta', role: 'College Head - PICT', college: 'PICT Pune', year: 'Final Year', bio: 'Managing PICT mentor network and student connections.', photo: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800', linkedin: '#' },
-    { id: '8', name: 'Ananya Singh', role: 'College Head - COEP', college: 'COEP Pune', year: 'Third Year', bio: 'Coordinating mentorship programs for COEP aspirants.', photo: 'https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg?w=800', linkedin: '#' },
-    { id: '9', name: 'Karthik Rao', role: 'College Head - VJTI', college: 'VJTI Mumbai', year: 'Final Year', bio: 'Building bridges between VJTI seniors and junior aspirants.', photo: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?w=800', linkedin: '#' },
-    { id: '10', name: 'Nisha Gupta', role: 'College Head - SPIT', college: 'SPIT Mumbai', year: 'Third Year', bio: 'Organizing expert sessions and networking events for SPIT.', photo: 'https://images.pexels.com/photos/1587009/pexels-photo-1587009.jpeg?w=800', linkedin: '#' },
-    { id: '11', name: 'Ravi Kumar', role: 'College Head - Walchand', college: 'Walchand Sangli', year: 'Final Year', bio: 'Building and nurturing our student community in Walchand.', photo: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?w=800', linkedin: '#' },
-    { id: '12', name: 'Meera Shah', role: 'College Head - Cummins', college: 'Cummins College', year: 'Third Year', bio: 'Creating beautiful and intuitive user experiences for our members.', photo: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?w=800', linkedin: '#' }
+    { id: '7', name: 'Harsh Patil', role: 'College Head - SPIT', college: 'SPIT Mumbai', year: 'Second Year', bio: 'Encouraging collaboration and guiding peers toward new opportunities.', photo: harsh, linkedin: '#' },
+    // { id: '8', name: 'Saurab', role: 'College Head - Sinhgad', college: 'Sinhgad College', year: 'Third Year', bio: 'Organizing impactful initiatives that foster growth and leadership.', photo: saurab, linkedin: '#' },
+    { id: '9', name: 'Venugopal Baheti', role: 'College Head - VIT', college: 'VIT Pune', year: 'Third Year', bio: 'Dedicated to bridging the gap between achievers and aspiring students.', photo: venugopal, linkedin: '#' },
+    { id: '10', name: 'Yash Bhate', role: 'College Head - VJTI', college: 'VJTI Mumbai', year: 'Second Year', bio: 'Focused on fostering peer connections and student mentorship.', photo: yash, linkedin: '#' },
+    { id: '11', name: 'Vedant Ingle', role: 'College Head - DYP', college: 'DYP', year: 'Third Year', bio: 'Committed to creating opportunities that empower student growth.', photo: vedant, linkedin: '#' },
+    { id: '12', name: 'Udayraj', role: 'College Head - Walchand', college: 'Walchand Sangli', year: 'Second Year', bio: 'Building strong networks to support collaborative learning.', photo: udayraj, linkedin: '#' },
+    { id: '13', name: 'Siddant Rajput', role: 'College Head - PICT', college: 'PICT Pune', year: 'Second Year', bio: 'Encouraging innovation and guiding peers to achieve excellence.', photo: siddant, linkedin: '#' },
+    { id: '14', name: 'Pranav Gawand', role: 'College Head - PICT', college: 'PICT Pune', year: 'Second Year', bio: 'Dedicated to organizing initiatives that inspire student engagement.', photo: pranav, linkedin: '#' },
+    { id: '15', name: 'Samiksha Magdum', role: 'College Head - Cummins', college: 'Cummins College', year: 'Second Year', bio: 'Passionate about leadership and building supportive learning spaces.', photo: samiksha, linkedin: '#' },
+    { id: '16', name: 'Darshan Patil', role: 'College Head - Walchand', college: 'Walchand Sangli', year: 'Second Year', bio: 'Striving to create impactful experiences for fellow students.', photo: darshan, linkedin: '#' },
+    { id: '17', name: 'Akshat Patil', role: 'College Head - SPIT', college: 'SPIT Mumbai', year: 'Second Year', bio: 'Promoting collaboration and driving meaningful student initiatives.', photo: akshat, linkedin: '#' },
+    { id: '18', name: 'Aditya Patel', role: 'College Head - JSPM', college: 'JSPM', year: 'Second Year', bio: 'Focused on developing peer-driven learning and mentorship programs.', photo: aditya, linkedin: '#' },
+    { id: '19', name: 'Aadhya Bhagat', role: 'College Head - PCCOE', college: 'PCCOE', year: 'Third Year', bio: 'Committed to empowering students through guidance and opportunities.', photo: aadhya, linkedin: '#' },
+    { id: '20', name: 'Shreeharsh Omase', role: 'College Head - VIT', college: 'VIT Pune', year: 'Second Year', bio: 'Passionate about mentorship and building future-ready student leaders.', photo: shreeharsh, linkedin: '#' },
+    //MEntors
+  
+    { id: '21', name: 'Jay Matere', role: 'College Mentor - PICT', college: 'PICT Pune', year: 'Second Year', bio: 'Leading initiatives that connect experience with ambition.', photo: jay, linkedin: '#' },
+    { id: '22', name: 'Anuraj Jagtap', role: 'College Mentor - PICT', college: 'PICT Pune', year: 'Second Year', bio: 'Dedicated to guiding peers with mentorship and meaningful support.', photo: anuraj, linkedin: '#' },
+    { id: '23', name: 'Adinath Dound', role: 'College Mentor - VIT', college: 'VIT Pune', year: 'Second Year', bio: 'Committed to supporting juniors through guidance and collaboration.', photo: adinath, linkedin: '#' },
+    { id: '24', name: 'Atharv', role: 'College Mentor - VIT', college: 'VIT Pune', year: 'Second Year', bio: 'Focused on creating a supportive space for learning and growth.', photo: atharv, linkedin: '#' },
+    { id: '25', name: 'Arya Kale', role: 'College Mentor - VIT', college: 'VIT Pune', year: 'Second Year', bio: 'Passionate about mentoring and helping peers achieve their goals.', photo: arya, linkedin: '#' },
+    { id: '26', name: 'Pragati Rakhunde', role: 'College Mentor - VIT', college: 'VIT Pune', year: 'Second Year', bio: 'Encouraging collaboration and fostering growth through mentorship.', photo: pragati, linkedin: '#' },
+    { id: '27', name: 'Pratham Dedgaonkar', role: 'College Mentor - VIT', college: 'VIT Pune', year: 'Second Year', bio: 'Dedicated to guiding juniors with practical insights and support.', photo: pratham, linkedin: '#' },
+    { id: '28', name: 'Ruchi Hande', role: 'College Mentor - VIT', college: 'VIT Pune', year: 'Second Year', bio: 'Inspiring peers to learn, grow, and achieve through mentorship.', photo: ruchi, linkedin: '#' },
+    { id: '29', name: 'Tejas Parkar', role: 'College Mentor - PCCOE', college: 'PCCOE', year: 'Third Year', bio: 'Sharing knowledge and experiences to empower juniors in their journey.', photo: tejas, linkedin: '#' },
+    { id: '30', name: 'Siddhesh Sarphale', role: 'College Mentor - PCCOE', college: 'PCCOE', year: 'Third Year', bio: 'Passionate about guiding peers and encouraging continuous learning.', photo: siddhesh, linkedin: '#' },
+    { id: '31', name: 'Sakshi Patil', role: 'College Mentor - PCCOE', college: 'PCCOE', year: 'Third Year', bio: 'Committed to building meaningful mentor-mentee connections.', photo: sakshi, linkedin: '#' },
+    { id: '32', name: 'Purva Kavathekar', role: 'College Mentor - Cummins', college: 'Cummins College', year: 'Second Year', bio: 'Dedicated to mentoring peers and helping them reach their full potential.', photo: purva, linkedin: '#' },
+    { id: '33', name: 'Janhavi Deshpande', role: 'College Mentor - Cummins', college: 'Cummins College', year: 'Second Year', bio: 'Encouraging collaboration and growth through knowledge sharing.', photo: janhavi, linkedin: '#' },
+    { id: '34', name: 'Gargi Mukkawar', role: 'College Mentor - Cummins', college: 'Cummins College', year: 'Second Year', bio: 'Focused on guiding juniors with valuable insights and support.', photo: gargi, linkedin: '#' },
+    { id: '35', name: 'Prathamesh Naik', role: 'College Mentor - VJTI', college: 'VJTI Mumbai', year: 'Second Year', bio: 'Helping peers navigate challenges with mentorship and guidance.', photo: prathamesh, linkedin: '#' },
+    { id: '36', name: 'Aryan Jadhav', role: 'College Mentor - VJTI', college: 'VJTI Mumbai', year: 'Second Year', bio: 'Encouraging teamwork and continuous learning among students.', photo: aryan, linkedin: '#' },
+    { id: '37', name: 'Pratik Yelmewad', role: 'College Mentor - Walchand', college: 'Walchand Sangli', year: 'Second Year', bio: 'Committed to creating a collaborative and supportive environment.', photo: pratik, linkedin: '#' },
+    { id: '38', name: 'Mahesh Khose', role: 'College Mentor - PICT', college: 'PICT Pune', year: 'Second Year', bio: 'Striving to guide juniors through shared experiences and insights.', photo: mahesh, linkedin: '#' },
+    { id: '39', name: 'Ishwar Sonawane', role: 'College Mentor - PCCOE', college: 'PCCOE', year: 'Third Year', bio: 'Passionate about helping peers grow academically and personally.', photo: ishwar, linkedin: '#' },
+    { id: '40', name: 'Avdhoot Patankar', role: 'College Mentor - JSPM', college: 'JSPM', year: 'Second Year', bio: 'Dedicated to supporting students with mentorship and motivation.', photo: avdhoot, linkedin: '#' },
+
   ];
 
   // Separate members into their respective sections
-  const coreTeam = teamMembers.filter(member => !member.role.includes('College Head'));
-  const collegeHeads = teamMembers.filter(member => member.role.includes('College Head'));
+ const coreTeam = teamMembers.filter(member => 
+  !member.role.includes('College Head') && !member.role.includes('College Mentor')
+);
+
+const collegeHeads = teamMembers.filter(member => 
+  member.role.includes('College Head')
+);
+
+const collegeMentors = teamMembers.filter(member => 
+  member.role.includes('College Mentor')
+);
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-orange-50">
@@ -182,6 +266,13 @@ const TeamPage = () => {
           accentColor="orange"
           initialVisibleCount={4}
         />
+        {/*mentors*/}
+        <TeamShowcase 
+         title="College Mentors" 
+          members={collegeMentors} 
+          accentColor="orange"
+          initialVisibleCount={4}
+        />
         
       </div>
     </div>
@@ -189,3 +280,4 @@ const TeamPage = () => {
 };
 
 export default TeamPage;
+
