@@ -26,7 +26,7 @@ import aadhya from '../assets/heads/College Heads/aadhya.jpg';
 import shreeharsh from '../assets/heads/College Heads/shreeharsh.jpg';
 
 
-import jay from '../assets/mentors/jay.jpg';
+import jay from '../assets/heads/College Heads/jay.jpg';
 import anuraj from '../assets/mentors/anuraj.jpg';
 import adinath from '../assets/mentors/adinath.jpg';
 import atharv from '../assets/mentors/atharv.jpg';
